@@ -3,107 +3,454 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mohammad Jafar Abdullah | Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Mohammad Jafar Abdullah - Portofolio</title>
+    <style>
+        /* Base Reset & Elegant Variables */
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #17103a 100%);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #818cf8;
+            --accent-hover: #6366f1;
+            --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text-main);
+            font-family: var(--font);
+            line-height: 1.7;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* Glassmorphism Navbar */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-main);
+        }
+
+        /* Hero Section with Profile Image */
+        .hero {
+            padding: 12rem 2rem 8rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4rem;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-image-container {
+            flex-shrink: 0;
+        }
+
+        .hero-image {
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid rgba(129, 140, 248, 0.3);
+            box-shadow: 0 0 40px rgba(129, 140, 248, 0.2);
+            transition: transform 0.5s ease;
+        }
+
+        .hero-image:hover {
+            transform: scale(1.05);
+            border-color: rgba(129, 140, 248, 0.6);
+        }
+
+        .hero-badge {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--accent);
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(4px);
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero h2 {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            font-weight: 400;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #ffffff;
+            border: none;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+        }
+
+        /* General Section Styling */
+        section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: center;
+            background: linear-gradient(to right, #818cf8, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Skills Section with Images */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .skill-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .skill-content {
+            padding: 2rem;
+        }
+
+        .skill-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.2rem;
+            color: #ffffff;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .tag {
+            background: rgba(129, 140, 248, 0.1);
+            color: var(--accent);
+            border: 1px solid rgba(129, 140, 248, 0.2);
+            padding: 0.4rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Projects Section with Images */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .project-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(129, 140, 248, 0.3);
+        }
+
+        .project-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .project-info {
+            padding: 2rem;
+        }
+
+        .project-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-badge {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid var(--glass-border);
+            padding: 0.3rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+        }
+
+        .project-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 2rem;
+            text-align: center;
+            background: rgba(15, 23, 42, 0.8);
+            border-top: 1px solid var(--glass-border);
+            margin-top: 4rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero {
+                flex-direction: column-reverse;
+                text-align: center;
+                padding-top: 8rem;
+            }
+            .hero h1 { font-size: 3rem; }
+            .hero h2 { margin: 0 auto 2rem auto; }
+            .nav-links { display: none; } /* Simplified for mobile */
+        }
+    </style>
 </head>
 <body>
 
-    <nav id="navbar">
+    <header>
         <div class="nav-container">
-            <h1 class="logo">MJA.</h1>
+            <a href="#" class="logo">MJA.</a>
             <ul class="nav-links">
-                <li><a href="#beranda">Beranda</a></li>
-                <li><a href="#profil">Profil</a></li>
-                <li><a href="#keterampilan">Keterampilan</a></li>
-                <li><a href="#proyek">Proyek</a></li>
+                <li><a href="#home">Beranda</a></li>
+                <li><a href="#skills">Keterampilan</a></li>
+                <li><a href="#projects">Proyek</a></li>
             </ul>
-        </div>
-    </nav>
-
-    <header id="beranda" class="hero">
-        <div class="hero-content">
-            <h1>Mohammad Jafar Abdullah</h1>
-            <h2>E-Commerce Developer & Software Quality Assurance Enthusiast</h2>
-            <div class="location-info">
-                <p>📍 Tangerang Selatan</p>
-                <p>🎓 Mahasiswa, Institut Teknologi Tangerang Selatan</p>
-            </div>
-            <a href="#proyek" class="btn-primary">Lihat Proyek Saya</a>
         </div>
     </header>
 
-    <section id="profil" class="section">
-        <div class="container">
-            <h2 class="section-title">Profil Singkat</h2>
-            <p class="profile-text">
-                Saya adalah pengembang web yang berfokus pada ekosistem e-commerce dan aplikasi interaktif. Dengan latar belakang akademis di bidang <strong>Software Quality Assurance (SQA)</strong> dan <strong>Cybersecurity</strong>, saya tidak hanya membangun antarmuka yang menarik secara visual, tetapi juga memastikan kode yang saya tulis aman, tahan banting, dan telah melewati skenario pengujian yang ketat. Saya memiliki pengalaman dalam membangun fitur dinamis menggunakan Shopify Liquid dan React, serta mengelola lingkungan server berbasis Linux.
-            </p>
-        </div>
-    </section>
+    <main>
+        <!-- HERO SECTION -->
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <div class="hero-badge">E-Commerce Developer & SQA Enthusiast</div>
+                <h1>Mohammad Jafar Abdullah</h1>
+                <h2>Mengembangkan platform e-commerce interaktif dengan fokus penuh pada kualitas kode, stabilitas performa, dan aspek keamanan siber.</h2>
+                <a href="#projects" class="btn btn-primary">Lihat Proyek Saya</a>
+            </div>
+            <div class="hero-image-container">
+                <!-- GANTI URL DI BAWAH INI DENGAN FOTO PROFIL ANDA -->
+                <img src="foto-saya.jpg" alt="Foto Profil Mohammad Jafar Abdullah" class="hero-image">
+            </div>
+        </section>
 
-    <section id="keterampilan" class="section bg-light">
-        <div class="container">
+        <!-- SKILLS SECTION -->
+        <section id="skills">
             <h2 class="section-title">Keterampilan Utama</h2>
             <div class="skills-grid">
+                
                 <div class="skill-card">
-                    <h3>Web Development</h3>
-                    <p>Shopify (Liquid, Schema, AJAX API), React, Flutter, JavaScript, HTML/CSS.</p>
+                    <!-- GANTI URL DI BAWAH INI UNTUK GAMBAR SKILL WEB -->
+                    <img src="proyek-saya.jpg" alt="Web Development" class="skill-image">
+                    <div class="skill-content">
+                        <h3>Web Development</h3>
+                        <div class="skill-tags">
+                            <span class="tag">Shopify (Liquid)</span>
+                            <span class="tag">React</span>
+                            <span class="tag">Flutter</span>
+                            <span class="tag">JavaScript</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="skill-card">
-                    <h3>Software Quality Assurance</h3>
-                    <p>Skenario Pengujian (White Box / Black Box), Equivalence Partitioning, Code Coverage Metrics.</p>
-                </div>
-                <div class="skill-card">
-                    <h3>Cybersecurity & System Admin</h3>
-                    <p>Analisis kerentanan berbasis web (Cross-Site Scripting / XSS), Linux Server (ProFTPD, SSH), Jaringan Komputer.</p>
-                </div>
-                <div class="skill-card">
-                    <h3>Tools</h3>
-                    <p>Git, VS Code, Vercel, Shopify CLI.</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <section id="proyek" class="section">
-        <div class="container">
+                <div class="skill-card">
+                    <!-- GANTI URL DI BAWAH INI UNTUK GAMBAR SKILL SQA -->
+                    <img src="proyek-saya (2).jpg" alt="SQA" class="skill-image">
+                    <div class="skill-content">
+                        <h3>Software Quality Assurance</h3>
+                        <div class="skill-tags">
+                            <span class="tag">White Box Testing</span>
+                            <span class="tag">Black Box Testing</span>
+                            <span class="tag">Code Coverage</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <!-- GANTI URL DI BAWAH INI UNTUK GAMBAR SKILL CYBERSECURITY -->
+                    <img src="proyek-saya (3).jpg" alt="Cybersecurity" class="skill-image">
+                    <div class="skill-content">
+                        <h3>Cybersecurity & Admin</h3>
+                        <div class="skill-tags">
+                            <span class="tag">XSS Mitigation</span>
+                            <span class="tag">Linux Server</span>
+                            <span class="tag">Jaringan</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- PROJECTS SECTION -->
+        <section id="projects">
             <h2 class="section-title">Proyek Unggulan</h2>
             <div class="projects-grid">
                 
                 <div class="project-card">
-                    <h3>1. Custom Shopify Theme: Dynamic Storefront & AJAX Cart Drawer</h3>
-                    <p class="tech-stack"><strong>Teknologi:</strong> Shopify Liquid, JavaScript (Fetch API), CSS3, JSON Schema.</p>
-                    <p>Membangun antarmuka toko online interaktif yang responsif dan mudah dikelola oleh admin.</p>
-                    <ul class="feature-list">
-                        <li>Merancang Custom Hero Section dan Product Grid dinamis menggunakan Liquid looping (<code>{% for %}</code>) dan konfigurasi Schema.</li>
-                        <li>Mengembangkan Cart Drawer interaktif menggunakan manipulasi DOM asinkron.</li>
-                        <li><strong>Penerapan SQA:</strong> Mengimplementasikan pengujian fallback (<code>{% if product != blank %}</code>) untuk mencegah halaman crash saat data kosong.</li>
-                    </ul>
+                    <!-- GANTI URL DI BAWAH INI UNTUK GAMBAR PROYEK 1 -->
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=500&fit=crop" alt="Shopify Theme" class="project-img">
+                    <div class="project-info">
+                        <div class="project-title">Custom Shopify Theme</div>
+                        <div class="project-tech">
+                            <span class="tech-badge">Shopify Liquid</span>
+                            <span class="tech-badge">Fetch API</span>
+                        </div>
+                        <p class="project-desc">Merancang Product Grid dinamis dan Cart Drawer interaktif asinkron, dilengkapi pengujian fallback untuk mencegah crash.</p>
+                    </div>
                 </div>
 
                 <div class="project-card">
-                    <h3>2. Cinema-kampus-UAS (Web Application)</h3>
-                    <p class="tech-stack"><strong>Teknologi:</strong> React, Git, Vercel.</p>
-                    <p>Aplikasi pustaka film modern untuk memenuhi kebutuhan manajemen katalog hiburan digital.</p>
-                    <p><strong>Deskripsi:</strong> Membangun antarmuka aplikasi dengan struktur komponen React yang dapat digunakan ulang (reusable). Proyek ini dikelola menggunakan Git dan di-deploy secara live menggunakan Vercel untuk memastikan aksesibilitas publik yang cepat dan andal.</p>
+                    <!-- GANTI URL DI BAWAH INI UNTUK GAMBAR PROYEK 2 -->
+                    <img src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d?w=800&h=500&fit=crop" alt="Cinema Kampus" class="project-img">
+                    <div class="project-info">
+                        <div class="project-title">Cinema-kampus-UAS</div>
+                        <div class="project-tech">
+                            <span class="tech-badge">React</span>
+                            <span class="tech-badge">Vercel</span>
+                        </div>
+                        <p class="project-desc">Aplikasi pustaka film modern yang dibangun dengan struktur komponen React reusable dan dideploy via Vercel.</p>
+                    </div>
                 </div>
 
                 <div class="project-card">
-                    <h3>3. Web Vulnerability Testing & Mitigation (Laboratorium XSS)</h3>
-                    <p class="tech-stack"><strong>Fokus:</strong> Cybersecurity & Secure Coding</p>
-                    <p>Analisis keamanan aplikasi web terhadap serangan injeksi skrip.</p>
-                    <p><strong>Deskripsi:</strong> Melakukan identifikasi, eksploitasi terkontrol, dan mitigasi pada berbagai skenario serangan Cross-Site Scripting (Reflected XSS, filter bypassing, tag filtering). Memastikan penerapan praktik coding yang aman (secure coding) saat menangani input pengguna.</p>
+                    <!-- GANTI URL DI BAWAH INI UNTUK GAMBAR PROYEK 3 -->
+                    <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&h=500&fit=crop" alt="XSS Mitigation" class="project-img">
+                    <div class="project-info">
+                        <div class="project-title">Web Vulnerability Testing</div>
+                        <div class="project-tech">
+                            <span class="tech-badge">XSS Lab</span>
+                            <span class="tech-badge">Secure Coding</span>
+                        </div>
+                        <p class="project-desc">Analisis keamanan dan mitigasi serangan Cross-Site Scripting untuk memastikan kode aman dari injeksi input.</p>
+                    </div>
                 </div>
 
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <footer>
-        <p>&copy; 2026 Mohammad Jafar Abdullah. All Rights Reserved.</p>
+        <p>&copy; 2026 Mohammad Jafar Abdullah. E-Commerce Developer & SQA.</p>
     </footer>
 
-    <script src="script.js"></script>
 </body>
 </html>
